@@ -1,0 +1,7 @@
+{
+  "minPriorityScore": 3,
+  "maxItems": 10,
+  "scanLimit": 5,
+  "tags": ["billing", "personal", "work", "system"],
+  "memoryPath": "memory/priority-recall"
+}
