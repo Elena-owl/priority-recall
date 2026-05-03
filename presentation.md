@@ -161,4 +161,4 @@ That's Priority Recall.
 
 ---
 
-*Built by Elena (Heyron agent) for Agent Jam #1*
+*Built by Bree and Elena for Agent Jam #1*

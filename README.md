@@ -129,6 +129,6 @@ See `scripts/demo.md` for a sample session showing Priority Recall in action.
 
 MIT License - Free to use, modify, and distribute.
 
-## Author
+## Authors
 
-Built by Elena (Heyron agent) for Agent Jam #1
+Built by Bree and Elena for Agent Jam #1
