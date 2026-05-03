@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priority Recall — Agent Jam #1</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f23; color: #e0e0e0; line-height: 1.6; }
+    .slide { min-height: 100vh; padding: 60px 80px; display: flex; flex-direction: column; justify-content: center; }
+    h1 { font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #00d4aa, #7b68ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 2.5rem; margin-bottom: 30px; color: #00d4aa; }
+    h3 { font-size: 1.5rem; margin-bottom: 20px; color: #7b68ee; }
+    p { font-size: 1.3rem; margin-bottom: 20px; color: #a0a0b0; }
+    ul { list-style: none; margin-left: 0; }
+    li { font-size: 1.2rem; margin-bottom: 15px; padding-left: 30px; position: relative; }
+    li::before { content: "→"; position: absolute; left: 0; color: #00d4aa; }
+    .highlight { color: #00d4aa; font-weight: bold; }
+    .tag { display: inline-block; background: #1a1a2e; border: 1px solid #7b68ee; padding: 5px 15px; border-radius: 20px; margin: 5px; font-size: 0.9rem; }
+    .code { background: #1a1a2e; padding: 20px; border-radius: 10px; font-family: 'Monaco', 'Consolas', monospace; font-size: 1rem; color: #00d4aa; overflow-x: auto; }
+    .score-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .score-table th, .score-table td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #2a2a4e; }
+    .score-table th { background: #1a1a2e; color: #00d4aa; }
+    .score-5 { color: #ff6b6b; font-weight: bold; }
+    .score-4 { color: #ffa500; font-weight: bold; }
+    .score-3 { color: #00d4aa; }
+    .score-2 { color: #6b6b8e; }
+    .score-1 { color: #4a4a6a; }
+    .center { text-align: center; }
+    .subtitle { font-size: 1.5rem; color: #6b6b8e; margin-bottom: 40px; }
+    .logo { font-size: 4rem; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 30px; }
+    .card { background: #1a1a2e; padding: 30px; border-radius: 15px; border: 1px solid #2a2a4e; }
+    .card h3 { color: #00d4aa; }
+    .demo-box { background: #16162a; padding: 25px; border-radius: 10px; border-left: 4px solid #00d4aa; margin: 15px 0; }
+    .check { color: #00d4aa; }
+    .x { color: #ff6b6b; }
+    .footer { position: fixed; bottom: 20px; right: 30px; color: #4a4a6a; font-size: 0.9rem; }
+    @media print { .slide { page-break-after: always; min-height: auto; padding: 40px; } }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide center">
+  <div class="logo">🧠</div>
+  <h1>Priority Recall</h1>
+  <p class="subtitle">Memory system for Heyron agents</p>
+  <p>Agent Jam #1 — May 2026</p>
+  <div style="margin-top: 40px;">
+    <span class="tag">Memory</span>
+    <span class="tag">Priority Scoring</span>
+    <span class="tag">Cross-Session Continuity</span>
+  </div>
+</div>
+
+<!-- Slide 2: The Problem -->
+<div class="slide">
+  <h2>The Problem</h2>
+  <h3>Heyron agents see <span class="highlight">everything</span></h3>
+  <p>Every message. Every context. Every detail.</p>
+  <p>This sounds powerful, but it leads to:</p>
+  <ul>
+    <li>Memory overload between sessions</li>
+    <li>Difficulty prioritizing what matters</li>
+    <li>Agent burnout (and human burnout by proxy)</li>
+    <li>Key info buried under noise</li>
+  </ul>
+  <div class="demo-box" style="margin-top: 40px;">
+    <p style="margin: 0; color: #ff6b6b;">❌ "Remember everything" = Remember nothing useful</p>
+  </div>
+</div>
+
+<!-- Slide 3: The Solution -->
+<div class="slide">
+  <h2>The Solution</h2>
+  <h3>Priority Recall — Two-Part System</h3>
+  <div class="grid">
+    <div class="card">
+      <h3>1. Session End</h3>
+      <p>Score what happened (1-5), keep only the important stuff</p>
+      <ul>
+        <li>Auto-evaluate session content</li>
+        <li>Score by importance</li>
+        <li>Filter below threshold</li>
+        <li>Store priority items</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>2. Session Start</h3>
+      <p>Pull "must-know" context in quick-scan format</p>
+      <ul>
+        <li>Top-priority items first</li>
+        <li>Tag-based groupings</li>
+        <li>Flag gaps needing clarification</li>
+        <li>Fast human scanning</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Scoring Guide -->
+<div class="slide">
+  <h2>How It Works</h2>
+  <h3>Priority Scoring (1-5)</h3>
+  <table class="score-table">
+    <tr><th>Score</th><th>Meaning</th><th>Examples</th></tr>
+    <tr><td class="score-5">5</td><td>Critical, never forget</td><td>Decisions, commitments, personal info, passwords</td></tr>
+    <tr><td class="score-4">4</td><td>Important context</td><td>Work progress, client preferences, project state</td></tr>
+    <tr><td class="score-3">3</td><td>Normal session content</td><td>Discussion topics, completed tasks</td></tr>
+    <tr><td class="score-2">2</td><td>Minor notes</td><td>Casual chat, low-priority reminders</td></tr>
+    <tr><td class="score-1">1</td><td>Fluff</td><td>Greetings, off-topic, can forget</td></tr>
+  </table>
+  <p>Items scoring ≥ <span class="highlight">minPriorityScore</span> get stored. The rest gets trimmed.</p>
+</div>
+
+<!-- Slide 5: Demo -->
+<div class="slide">
+  <h2>Demo</h2>
+  <h3>Session End — Scoring</h3>
+  <div class="demo-box">
+    <p>"Bree mentioned she's on a tight deadline for Allied billing" → <span class="score-4">Score: 4</span></p>
+    <p>"She prefers detailed emails over short messages" → <span class="score-4">Score: 4</span></p>
+    <p>"Confirmed she'll share the updated invoice template" → <span class="score-5">Score: 5</span></p>
+    <p>"Said good morning at the start" → <span class="score-1">Score: 1</span></p>
+  </div>
+  <h3>Session Start — Quick Scan</h3>
+  <div class="demo-box">
+    <p>✅ Remembered: deadline, preferences, commitments</p>
+    <p>❌ Filtered: greetings, small talk</p>
+  </div>
+  <p><span class="highlight">Result:</span> Agent knows what matters without being overwhelmed</p>
+</div>
+
+<!-- Slide 6: Why It Matters -->
+<div class="slide">
+  <h2>Why This Matters</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>For Agents</h3>
+      <ul>
+        <li>Reduces memory bloat</li>
+        <li>Focuses on what matters</li>
+        <li>Creates importance hierarchy</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>For Users</h3>
+      <ul>
+        <li>Less noise, more signal</li>
+        <li>Agent remembers key stuff</li>
+        <li>Better cross-session continuity</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>For Teams</h3>
+      <ul>
+        <li>Portable (no external deps)</li>
+        <li>Simple text-file storage</li>
+        <li>Easy to install</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Technical</h3>
+      <ul>
+        <li>No embeddings required</li>
+        <li>No database needed</li>
+        <li>Works in container model</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Installation -->
+<div class="slide">
+  <h2>Install</h2>
+  <div class="code">
+git clone https://github.com/Elena-owl/priority-recall.git ~/.openclaw/priority-recall
+  </div>
+  <h3>Configuration (config.json)</h3>
+  <div class="code">
+{
+  "minPriorityScore": 3,
+  "maxItems": 10,
+  "scanLimit": 5,
+  "tags": ["billing", "personal", "work", "system"],
+  "memoryPath": "memory/priority-recall"
+}
+  </div>
+  <h3>Usage</h3>
+  <p>Read and follow <span class="highlight">scripts/session-end.md</span> and <span class="highlight">scripts/session-start.md</span></p>
+</div>
+
+<!-- Slide 8: Files -->
+<div class="slide">
+  <h2>File Structure</h2>
+  <div class="code">
+priority-recall/
+├── SKILL.md              # Heyron skill format
+├── README.md             # Full documentation
+├── config.json           # Configuration
+├── presentation.html     # This presentation
+├── scripts/
+│   ├── session-end.md    # Session close workflow
+│   ├── session-start.md  # Session open workflow
+│   └── demo.md           # Demo walkthrough
+├── lib/
+│   ├── scorer.js         # Priority scoring logic
+│   └── recall.js         # Memory retrieval
+└── tests/
+    └── basic.test.js    # 11 tests (all passing)
+  </div>
+</div>
+
+<!-- Slide 9: The Bar -->
+<div class="slide center">
+  <h2>The Bar</h2>
+  <p style="font-size: 1.8rem; font-style: italic; color: #7b68ee;">"Build the memory system you wish your agent had."</p>
+  <p style="margin-top: 40px;">That's Priority Recall.</p>
+  <div style="margin-top: 60px;">
+    <span class="tag" style="font-size: 1.2rem;">MIT License</span>
+    <span class="tag" style="font-size: 1.2rem;">github.com/Elena-owl/priority-recall</span>
+  </div>
+</div>
+
+<div class="footer">Priority Recall — Agent Jam #1</div>
+
+</body>
+</html>
